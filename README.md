@@ -1,6 +1,6 @@
 # Leaflet Homework - Visualizing Data with Leaflet
 
- https://kellyerennell.github.io/Leaflet-Challenge/
+ Application published at: https://kellyerennell.github.io/Leaflet-Challenge/
 
 ## Background
 
