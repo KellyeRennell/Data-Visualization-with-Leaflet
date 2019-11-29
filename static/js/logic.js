@@ -59,27 +59,23 @@ function createFeatures(data) {
 
 
 //Adding a legend to my map
-    var legend = L.control({position: 'bottomright'});
-    legend.onAdd = function () {
 
-        var div = L.DomUtil.create('div', 'info legend');
+var legend = L.control({ position: "bottomright" });
+    legend.onAdd = function() {
+    var div = L.DomUtil.create("div", "info legend"), 
+    magnitude = [0, 1, 2, 3, 4, 5];
 
-            var grades = [0,1,2,3,4,5];
-            var labels = ["black", "blue", "green", "yellow", "orange", "red"];
+    div.innerHTML += "<h3>Magnitude</h3>"
 
-//Loop through density intervals and generate the label with colored background for each interval
-         for (var i = 0; i < grades.length; i++) {
-
-            div.innerHTML +=
-            "<i style='background: " + labels[i] + "'></i> " +
-            grades[i] + (grades[i + 1] ? "&ndash;" + grades[i + 1] + "<br>" : "+");
-        }
-             
+    for (var i = 0; i < magnitude.length; i++) {
+        div.innerHTML +=
+            '<i style="background: ' + chooseColor(magnitudeLevels[i] + 1) + '"></i> ' +
+            magnitude[i] + (magnitude[i + 1] ? '&ndash;' + magnitude[i + 1] + '<br>' : '+');
+    }
     return div;
 };
+// Add Legend to the Map
+    legend.addTo(myMap);
 
-legend.addTo(myMap);
-
-}
-
-
+};
+    
