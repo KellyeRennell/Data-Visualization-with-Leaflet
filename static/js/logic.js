@@ -10,7 +10,7 @@ const url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.
 
 function createFeatures(data) {
     var myMap = L.map ("map", {
-        center: [36.63, -121.19],
+        center: [45.52, -122.67],
         zoom: 5
     });
 
@@ -21,10 +21,10 @@ function createFeatures(data) {
     accessToken: API_KEY
     }).addTo(myMap);
 
-    //creating our markers
+    //creating our markers. 
     data.forEach(feature => {
         let mag = feature.properties.mag;
-
+    //conditionals
         var color = "";
         
         if (mag <= 1) {
@@ -45,37 +45,36 @@ function createFeatures(data) {
         else {
             color + "red";
         }
-
+//Add the circles to the map
         L.circle([feature.geometry.coordinates[1],
             feature.geometry.coordinates[0]], {
                 fillColor: color,
                 fillOpacity: 0.5,
                 color: color,
-                radius: mag * 12000
+                radius: mag * 5
 
             }).bindPopup("<h4> Location: " + feature.properties.place + "<hr> Mag: " + mag + "</h4>"). addTo(myMap);
 
-    });
+    })
 
 
 //Adding a legend to my map
 
-var legend = L.control({ position: "bottomright" });
-    legend.onAdd = function() {
-    var div = L.DomUtil.create("div", "info legend"), 
-    magnitude = [0, 1, 2, 3, 4, 5];
+    var legend = L.control({ position: "bottomright" });
 
-    div.innerHTML += "<h3>Magnitude</h3>"
+    legend.onAdd = function(map) {
+    var div = L.DomUtil.create('div', 'info legend'), 
+    grades = [0, 1, 2, 3, 4, 5];
+    labels = [];
 
-    for (var i = 0; i < magnitude.length; i++) {
+    for (var i = 0; i < grades.length; i++) {
         div.innerHTML +=
-            '<i style="background: ' + chooseColor(magnitudeLevels[i] + 1) + '"></i> ' +
-            magnitude[i] + (magnitude[i + 1] ? '&ndash;' + magnitude[i + 1] + '<br>' : '+');
+            '<i style="background: ' + color(grades[i] + 1) + '"></i> ' +
+            grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
     }
     return div;
 };
 // Add Legend to the Map
     legend.addTo(myMap);
-
-};
+}
     
