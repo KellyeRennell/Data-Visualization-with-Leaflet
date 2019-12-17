@@ -1,6 +1,3 @@
-const quakeUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson"
-const platesUrl = "https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json"
-
 var tectonicplates = new L.LayerGroup();
 var earthquakes = new L.LayerGroup();
 
@@ -48,7 +45,10 @@ L.control.layers(baseMaps, overlays, {
     collapsed: false
 }).addTo(map);
 
-d3.json(quakeUrl, function(data) {
+
+//[USGS GeoJSON Feed](http://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php) page and pick a data set to visualize. When you click on a data set, for example 'All Earthquakes from the Past 7 Days
+
+d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson", function(data) {
 
         function getStyle(feature) {
         return {
@@ -124,8 +124,11 @@ L.geoJson(data, {
  
  legend.addTo(map);
 
-//Tectonic Plates data
-d3.json(platesUrl, function(platedata) {
+//Tectonic Plates data - illustrate the relationship between tectonic plates and seismic activity
+//https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_plates.json
+
+d3.json( "https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json", function(platedata) {
+
     L.geoJson(platedata, {
         color: "yellow",
         weight: 3
