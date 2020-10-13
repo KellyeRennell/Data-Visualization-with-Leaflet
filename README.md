@@ -1,4 +1,4 @@
-# Visualizing Data with Leaflet
+# Visualizing Earthquake Data History with JavaScript geo-mapping library - Leaflet.js
 
 Site published at: https://kellyerennell.github.io/Leaflet-Challenge/
 
